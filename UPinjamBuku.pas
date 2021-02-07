@@ -31,7 +31,9 @@ begin
           begin
                write('Masukkan ID Buku : ');readln(idBuku);
                write('Judul Buku : ');readln(judulBuku);
+               write('Jenis Buku : ');readln(jenisBuku);
                write('Pengarang : ');readln(Pengarang);
+               write('Penerbit : ');readln(Penerbit);
                write('Jumlah Stok : ');readln(jumlah);
                write('Harga Buku : ');readln(harga);
                if jumlah>=1000 then
@@ -59,7 +61,7 @@ begin
      clrscr;
      writeln('List Stok Buku');
      writeln('-----------------------------------------------------------------------');
-     writeln('|NO|ID BUKU|JUDUL BUKU|PENGARANG|STOK|HARGA|STATUS|');
+     writeln('|NO|KODE BUKU|JUDUL BUKU||JENIS BUKU|PENGARANG|PENERBIT||STOK|HARGA|STATUS|');
      writeln('-----------------------------------------------------------------------');
      for i:=1 to banyakData do
      begin
@@ -182,49 +184,50 @@ type
     end;
 
 var
-   fbuku,dummy: file of TBuku;
-   kodecari : string[20];
-   temp : Tbuku;
-   ada : boolean;
-   harga,jumlah : integer;
-   nama,kode : string[25];
-   total: longint;
+   fbuku: file of TBuku;
+   rbuku: TBuku;
+   i,jml: integer;
+   nocari: string[7];
+   ketemu: boolean;
+   lagi: char;
 begin
-     clrscr;
-     ada :=false;
-     Assign(fbuku,'StokBuku.DAT');
-     Reset(fbuku);
-     Assign(Dummy,'StokBuku.TMP');
-     Rewrite(Dummy);
-     Writeln('-----------EDIT NAMA BARANG------------ ');
-     Writeln('----------------------------------------');
-     Write('Masukan Kode Barang : ');readln(kodecari);
-     Writeln('----------------------------------------');
-     While not EOF(fbuku) Do
-     Begin
-           ADA :=FALSE;
-           Readln(temp,kode,nama,harga,jumlah);
-           total := Harga * jumlah;
-           IF KODE=KODECARI THEN
-           begin
-                ada := true;
-                Writeln('Nama :',Nama:20);
-                Write(' Koreksinya : ');Readln(nama);
-                Writeln('Harga :',Harga:20);
-                Write(' Koreksinya : ');Readln(harga);
-                Writeln('Jumlah :',jumlah:20);
-                Write(' Koreksinya : ');Readln(jumlah);
-                Writeln('----------------------------------------');
-           end;
-               Writeln(kode:5,nama:20,harga:10,jumlah:10);
-           End;
-           if not ada then
-              writeln('Data Tidak ada ');
-              Close(fbuku);
-              Close(Dummy);
-              Erase(fbuku);
-              Rename(dummy,'StokBuku.DAT');
-              Readln;
+     assign(fbuku,'StokBuku.DAT');
+     reset(fbuku);
+     jml:= filesize(fbuku);
+     lagi:='Y';
+
+     while upcase(lagi)='Y' do
+     begin
+      ketemu:= false;
+      clrscr;
+       write('Kode buku yang di cari : '); readln(nocari);
+       writeln;
+        for i:= 1 to jml do
+        begin
+         seek(fbuku,i-1);
+         read(fbuku,rbuku);
+         if rbuku.idBuku=nocari then
+            begin
+             with rbuku do
+             begin
+              ketemu:= true;
+              writeln('Kode Buku : ',idBuku);
+              write('Koreksinya: '); readln(idBuku);
+              writeln('Judul Buku: ',judulBuku);
+              write('Koreksinya: '); readln(judulBuku);
+
+             end;
+            end;
+             seek(fbuku,i-1);
+             write(fbuku,rbuku);
+        end;
+        if not ketemu then
+           writeln('Tidak nomor tersebut!!!');
+           writeln;
+           write('ada lagi yang akan dikoreksi [Y/T] ? ');
+           readln(lagi);
+     end;
+  close(fbuku);
 End;
 
 procedure hapusBuku;
@@ -250,11 +253,11 @@ begin
            writeln('ID Buku Yang Akan Dihapus : ');readln(a);
            i:=1;
      until i=10;
-
      end;
 
 begin
      banyakData:=0;
+     bacaData;
      repeat
            clrscr;
            writeln('Menu Pilihan');
