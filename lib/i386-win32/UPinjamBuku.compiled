@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="C:\FPC\3.2.0\bin\i386-Win32\fpc.exe" Date="1355043128"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq &quot;-FuC:\Users\Afghan Eka Pangestu\OneDrive\Documents\PeminjamanBuku\&quot; &quot;-FUC:\Users\Afghan Eka Pangestu\OneDrive\Documents\PeminjamanBuku\lib\i386-win32\&quot; &quot;-FEC:\Users\Afghan Eka Pangestu\OneDrive\Documents\PeminjamanBuku\&quot; &quot;-oC:\Users\Afghan Eka Pangestu\OneDrive\Documents\PeminjamanBuku\UPinjamBuku.exe&quot; UPinjamBuku.pas"/>
+  <Complete Value="False"/>
+</CONFIG>

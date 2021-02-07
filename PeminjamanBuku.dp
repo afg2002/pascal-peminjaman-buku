@@ -1,0 +1,12 @@
+[Project]
+FileName=F:\Programming\Pascal\PeminjamanBuku\PeminjamanBuku.dp
+Name=PeminjamanBuku
+MainUnit=F:\Programming\Pascal\PeminjamanBuku\UPinjamBuku.pas
+UnitCount=1
+ResFiles=F:\Programming\Pascal\PeminjamanBuku\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Dev-Pas\Icon\Mainicon.ico
+[Unit1]
+FileName=F:\Programming\Pascal\PeminjamanBuku\UPinjamBuku.pas
+FileTime=1380408692
